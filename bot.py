@@ -5,7 +5,7 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Updater, CommandHandler, Application,  ConversationHandler
 from telegram.ext import MessageHandler, InlineQueryHandler, filters, CallbackQueryHandler
 from datetime import datetime
-import telegramcalendar
+from telegram_calendar import telegramcalendar
 import sheets
 
 # from telegram.ext.filters import BaseFilter as BaseFilter

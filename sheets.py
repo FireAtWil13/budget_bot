@@ -22,8 +22,8 @@ class sheets_api:
   
     self.out_categries_range = "tech!M:M"
     self.in_categries_range = "tech!N:N"
-    self.outcome_range = "Транзакции!B:B"
-    self.income_range = "Транзакции!G:G"
+    self.outcome_range = "Транзакции!B:E"
+    self.income_range = "Транзакции!G:J"
     # httpAuth = credentials.authorize(httplib2.Http())
     
     
@@ -61,6 +61,21 @@ class sheets_api:
             spreadsheetId=self.spreadsheet_id, range=range_name,
             valueInputOption=value_input_option, body=body).execute()
 
+  def get_out_transactions(self):
+    outcome_range = self.outcome_range
+    transaction_values = self.service.spreadsheets().values().get(spreadsheetId=self.spreadsheet_id, range=self.outcome_range).execute();
+    transaction_columns = transaction_values['values'][transaction_values['values'].index([])+1:]
+    # categries = self.flatten(cat_column)
+    return transaction_columns
+  
+  def get_in_transactions(self):
+    income_range = self.income_range
+    transaction_values = self.service.spreadsheets().values().get(spreadsheetId=self.spreadsheet_id, range=self.income_range).execute();
+    cat_column = transaction_values['values'][transaction_values['values'].index([])+1:]
+    # categries = self.flatten(cat_column)
+    return cat_column
+
+  
   def flatten(self, l):
     return [item for sublist in l for item in sublist]
   
